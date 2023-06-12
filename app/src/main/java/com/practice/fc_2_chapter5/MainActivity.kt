@@ -1,6 +1,7 @@
 package com.practice.fc_2_chapter5
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -37,7 +38,13 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        newsAdapter = NewsAdapter()
+        newsAdapter = NewsAdapter { url ->
+            val intent = Intent(this, WebViewActivity::class.java).apply {
+                putExtra("url", url)
+            }
+            startActivity(intent)
+        }
+
         val newsService = retrofit.create(NewsService::class.java)
 
         binding.newsRecyclerView.apply {
