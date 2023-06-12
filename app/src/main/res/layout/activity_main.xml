@@ -82,10 +82,10 @@
             android:id="@+id/searchTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="검색어를 입력해주세요."
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:maxLines="1"
-            tools:text="테스트" />
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,5 +98,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         tools:listitem="@layout/item_news" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/notFoundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/search_not_found" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

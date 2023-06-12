@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.practice.fc_2_chapter5.databinding.ActivityMainBinding
 import com.tickaroo.tikxml.TikXml
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         binding.feedChip.setOnClickListener {
             binding.chipGroup.clearCheck() // 모든 칩들 isChecked를 해제시킴 (번거롭게 하나씩 지정하지 않아도 된다)
             binding.feedChip.isChecked = true
+            binding.searchTextInputEditText.text = null
 
             newsService.mainFeed().submitList()
         }
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         binding.politicsChip.setOnClickListener {
             binding.chipGroup.clearCheck()
             binding.politicsChip.isChecked = true
+            binding.searchTextInputEditText.text = null
 
             newsService.politicsNews().submitList()
         }
@@ -69,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         binding.economyChip.setOnClickListener {
             binding.chipGroup.clearCheck()
             binding.economyChip.isChecked = true
+            binding.searchTextInputEditText.text = null
 
             newsService.economyNews().submitList()
         }
@@ -76,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         binding.socialChip.setOnClickListener {
             binding.chipGroup.clearCheck()
             binding.socialChip.isChecked = true
+            binding.searchTextInputEditText.text = null
 
             newsService.socialNews().submitList()
         }
@@ -83,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         binding.itChip.setOnClickListener {
             binding.chipGroup.clearCheck()
             binding.itChip.isChecked = true
+            binding.searchTextInputEditText.text = null
 
             newsService.itNews().submitList()
         }
@@ -90,6 +96,7 @@ class MainActivity : AppCompatActivity() {
         binding.sportsChip.setOnClickListener {
             binding.chipGroup.clearCheck()
             binding.sportsChip.isChecked = true
+            binding.searchTextInputEditText.text = null
 
             newsService.sportsNews().submitList()
         }
@@ -122,6 +129,9 @@ class MainActivity : AppCompatActivity() {
 
                 val list = response.body()?.channel?.items.orEmpty().transform()
                 newsAdapter.submitList(list)
+
+                // list 비어있으면 -> lottie 보임
+                binding.notFoundView.isVisible = list.isEmpty()
 
                 list.forEachIndexed { index, news ->
                     // jsoup.connect는 네트워크에 접속 -> main thread에서 돌 수 없음 -> 따로 thread 생성 필요
